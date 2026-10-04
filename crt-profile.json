@@ -1,0 +1,23 @@
+{
+  "guid": "{ce905063-94a0-4b45-82e8-8f62e24561bd}",
+  "name": "world.execute(me) / CRT",
+  "commandline": "cmd.exe /d /c run-terminal.cmd --keep-font",
+  "startingDirectory": "%ASCII_PROJECT_DIR%",
+  "tabTitle": "world.execute(me); / CRT",
+  "suppressApplicationTitle": true,
+  "font": {
+    "face": "Lucida Console",
+    "size": 14,
+    "weight": 400
+  },
+  "background": "#080602",
+  "foreground": "#DDB366",
+  "cursorColor": "#E5D897",
+  "cursorShape": "underscore",
+  "padding": "12, 10",
+  "scrollbarState": "hidden",
+  "antialiasingMode": "grayscale",
+  "intenseTextStyle": "bright",
+  "experimental.retroTerminalEffect": true,
+  "closeOnExit": "graceful"
+}

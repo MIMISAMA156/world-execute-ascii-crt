@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>world.execute(me); / ASCII CINEMA</title>
+<style>
+:root{color-scheme:dark;--bg:#0c0e0e;--ink:#eee9dc;--dim:#8b8d81;--gold:#ffdf5f;--line:#2e3129}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Consolas,"Microsoft YaHei",monospace}main{max-width:1440px;margin:auto;padding:26px 42px 20px}header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;border-bottom:1px solid var(--line)}.brand{font-size:12px;letter-spacing:3px;color:var(--gold)}.meta{font-size:11px;color:var(--dim);letter-spacing:1px}h1{font-size:clamp(23px,3vw,39px);letter-spacing:-1.8px;font-weight:400;margin:22px 0 8px}h1 span{color:var(--gold)}.intro{display:flex;justify-content:space-between;align-items:end;margin-bottom:21px}.intro p{font-size:12px;color:var(--dim);margin:0;line-height:1.8}.chapter-label{color:var(--gold);font-size:11px;letter-spacing:2px}.theater{position:relative;background:#070909;border:1px solid #343329;box-shadow:0 16px 70px #0008}canvas{display:block;width:100%;height:auto;aspect-ratio:1792/968;object-fit:contain;background:#070909}.scan{pointer-events:none;position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 3px,#0002 3px 4px);opacity:.3}.overlay{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;background:#0305046b}.overlay[hidden]{display:none}.start{border:1px solid #c8ae4c;background:#11150fea;color:var(--gold);padding:17px 26px;letter-spacing:2px;font:14px Consolas,monospace;cursor:pointer;box-shadow:0 0 50px #000}.status{position:absolute;right:18px;top:13px;color:var(--dim);font-size:10px;letter-spacing:2px;pointer-events:none}.transport{display:grid;grid-template-columns:auto auto 1fr auto auto;gap:16px;align-items:center;padding:18px 0 12px}.transport button,.chapters button{font-family:inherit;cursor:pointer;color:var(--ink);border:1px solid var(--line);background:transparent;border-radius:2px}.transport button{height:35px;padding:0 13px;font-size:12px}.transport button:hover,.chapters button:hover{border-color:var(--gold);color:var(--gold)}button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:4px}button:disabled{opacity:.4;cursor:wait}.clock{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}.clock b{color:var(--gold);font-weight:400}input[type=range]{accent-color:var(--gold);cursor:pointer;width:100%;height:16px}.volume{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:10px}.volume input{width:80px}.chapters{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0 22px}.chapters button{text-align:left;padding:13px 15px;border-top:2px solid var(--line);line-height:1.7}.chapters button.active{border-top-color:var(--gold);background:#ffd95808}.chapters em{font-size:10px;font-style:normal;color:var(--dim)}.chapters strong{display:block;font-size:12px;font-weight:400;letter-spacing:1px}.chapters small{font-size:10px;color:var(--dim)}footer{border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;gap:20px;font-size:10px;color:var(--dim);line-height:1.8}footer a{color:#b3b39f;text-decoration:none}footer a:hover{color:var(--gold)}.theater:fullscreen{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;border:0}.theater:fullscreen canvas{width:100%;height:100%;object-fit:contain}.theater:fullscreen .status{right:28px;top:24px}.notice{font-size:11px;min-height:16px;color:#d4bc6b}.kbd{color:#b2b3a4}@media(max-width:700px){main{padding:18px 14px}.meta{display:none}header{padding-bottom:14px}.intro{display:block}.chapter-label{margin-top:12px}.transport{gap:8px;grid-template-columns:auto 1fr auto}.transport .restart,.volume{display:none}.transport input{grid-column:1/-1;grid-row:1}.chapters{gap:5px}.chapters button{padding:8px 5px}.chapters strong{font-size:9px;letter-spacing:0}.chapters small{display:none}footer{display:block}footer div+div{margin-top:8px}}@media(prefers-reduced-motion:reduce){.scan{display:none}}
+</style>
+</head>
+<body><main>
+<header><div class="brand">MILI / ASCII CINEMA</div><div class="meta">128 × 44 CHARACTERS &nbsp; / &nbsp; 24 FPS &nbsp; / &nbsp; OFFLINE EDITION</div></header>
+<div class="intro"><div><h1>world.execute<span>(me);</span></h1><p>一个被创造、被改写，仍在等待的世界。<br>字符动画 · 原曲同步 · 双语字幕</p></div><div class="chapter-label" id="chapterLabel">00 / READY TO EXECUTE</div></div>
+<section class="theater" id="theater" aria-label="ASCII 动画画面">
+<canvas id="screen" width="1792" height="968" aria-label="world.execute(me) ASCII 动画"></canvas><div class="scan"></div><div class="status" id="status">INITIALIZING</div>
+<div class="overlay" id="overlay"><button class="start" id="start" disabled>正在载入字符世界…</button></div>
+</section>
+<div class="transport">
+<button id="play" disabled aria-label="播放">▶ 播放</button><button class="restart" id="restart" aria-label="从头播放">↺ 重播</button>
+<input id="seek" type="range" min="0" max="211.906667" value="0" step="0.01" aria-label="播放进度">
+<span class="clock"><b id="time">00:00</b> / 03:32</span><button id="full" aria-label="全屏">全屏 ⛶</button>
+</div>
+<div class="volume"><span>VOLUME</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.75" aria-label="音量"></div>
+<nav class="chapters" aria-label="章节跳转">
+<button data-time="0"><em>01 &nbsp; 00:00</em><strong>CREATION</strong><small>创造</small></button>
+<button data-time="29.709"><em>02 &nbsp; 00:29</em><strong>DEVOTION</strong><small>献出一切</small></button>
+<button data-time="110.9"><em>03 &nbsp; 01:50</em><strong>ISOLATION</strong><small>离开</small></button>
+<button data-time="125.708"><em>04 &nbsp; 02:05</em><strong>EXECUTION</strong><small>失控</small></button>
+<button data-time="177.246"><em>05 &nbsp; 02:57</em><strong>LOVE</strong><small>困于爱</small></button>
+</nav>
+<div class="notice" id="notice" role="status"></div>
+<footer><div>原曲 / Mili · world.execute(me);<br>动画编排 / <a href="https://github.com/yym8224961/world.execute-me-ascii" target="_blank" rel="noopener">yym8224961 / world.execute-me-ascii ↗</a> · 浏览器与视频适配 / Codex</div><div><span class="kbd">SPACE</span> 播放 / 暂停 &nbsp; <span class="kbd">← →</span> 跳转 5 秒<br><span class="kbd">1–5</span> 章节 &nbsp; <span class="kbd">R</span> 重播 &nbsp; <span class="kbd">F</span> 全屏</div></footer>
+</main>
+<audio id="audio" preload="auto" src="data:audio/mpeg;base64,__AUDIO__"></audio>
+<script id="packed" type="application/octet-stream">__FRAMES__</script>
+<script>
+'use strict';
+const META=__META__;
+const $=id=>document.getElementById(id),audio=$('audio'),screen=$('screen'),ctx=screen.getContext('2d',{alpha:false}),buttons=[...document.querySelectorAll('[data-time]')];
+const atlas=new Image();atlas.src='data:image/png;base64,__ATLAS__';
+let frames=null,lastFrame=-1,previous=null,ready=false,started=false;
+audio.volume=.75;
+const clock=t=>`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`;
+function draw(t,force=false){
+ if(!frames)return;
+ const index=Math.max(0,Math.min(META.frames-1,Math.floor(t*META.fps)));
+ if(index===lastFrame&&!force)return;
+ const cells=frames.subarray(index*META.width*META.height,(index+1)*META.width*META.height);
+ for(let i=0;i<cells.length;i++){
+  const g=cells[i];if(previous&&g===previous[i]&&!force)continue;
+  ctx.drawImage(atlas,(g%64)*14,Math.floor(g/64)*22,14,22,(i%128)*14,Math.floor(i/128)*22,14,22);
+ }
+ previous=cells;lastFrame=index;
+}
+function update(){
+ const t=Math.min(META.duration,audio.currentTime);$('seek').value=t;$('time').textContent=clock(t);
+ let active=0;buttons.forEach((b,i)=>{if(t>=Number(b.dataset.time))active=i});
+ buttons.forEach((b,i)=>b.classList.toggle('active',i===active));
+ $('chapterLabel').textContent=`0${active+1} / ${buttons[active].querySelector('strong').textContent}`;
+ $('status').textContent=audio.ended?'PROCESS ENDED':audio.paused?'PAUSED':'RUNNING';
+ $('play').textContent=audio.paused?'▶ 播放':'Ⅱ 暂停';$('play').setAttribute('aria-label',audio.paused?'播放':'暂停');
+}
+async function toggle(){
+ if(!ready)return;
+ if(audio.paused){if(audio.ended)audio.currentTime=0;started=true;$('overlay').hidden=true;
+  try{await audio.play();$('notice').textContent='';}catch(e){$('notice').textContent='音频未能播放，请再次点击播放，或用 Edge / Chrome 打开本文件。';}
+ }else audio.pause();update();draw(audio.currentTime,true);
+}
+function seek(t){if(!ready)return;started=true;$('overlay').hidden=true;audio.currentTime=Math.max(0,Math.min(META.duration-.001,t));draw(audio.currentTime,true);update();}
+async function full(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('theater').requestFullscreen();}catch(e){$('notice').textContent='当前浏览器不支持全屏，可按 F11 放大浏览器。';}}
+$('start').onclick=toggle;$('play').onclick=toggle;$('full').onclick=full;
+$('restart').onclick=()=>{seek(0);if(audio.paused)toggle()};
+$('seek').oninput=e=>seek(Number(e.target.value));$('volume').oninput=e=>audio.volume=Number(e.target.value);
+buttons.forEach(b=>b.onclick=()=>{seek(Number(b.dataset.time));if(audio.paused)toggle()});
+document.addEventListener('keydown',e=>{
+ if(e.target.matches('input,button')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key))return;
+ const key=e.key.toLowerCase();if([' ','arrowleft','arrowright','r','f','1','2','3','4','5'].includes(key))e.preventDefault();
+ if(key===' ')toggle();if(key==='arrowleft')seek(audio.currentTime-5);if(key==='arrowright')seek(audio.currentTime+5);
+ if(key==='r')$('restart').click();if(key==='f')full();if(/^[1-5]$/.test(key))buttons[Number(key)-1].click();
+});
+audio.addEventListener('ended',()=>{draw(META.duration,true);update();$('notice').textContent='PROCESS ENDED. THE LOOP REMAINS.  /  按 R 再次运行。'});
+audio.addEventListener('seeked',()=>{draw(audio.currentTime,true);update()});
+audio.addEventListener('error',()=>{$('notice').textContent='音轨加载失败，请使用最新版 Edge 或 Chrome。'});
+let uiTick=0;
+function loop(now){if(ready&&started){draw(audio.currentTime);if(now-uiTick>100){update();uiTick=now}}requestAnimationFrame(loop)}
+async function init(){try{
+ const packed=Uint8Array.from(atob($('packed').textContent.trim()),c=>c.charCodeAt(0));
+ const raw=await new Response(new Blob([packed]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+ frames=new Uint16Array(raw);if(frames.length!==META.frames*META.width*META.height)throw new Error('frame count mismatch');
+ await atlas.decode();ready=true;draw(24,true);$('status').textContent='READY';$('play').disabled=false;$('start').disabled=false;$('start').textContent='▶  EXECUTE / 开始播放';
+ $('packed').remove();requestAnimationFrame(loop);
+}catch(e){$('start').textContent='加载失败';$('notice').textContent='请用最新版 Edge / Chrome 打开本文件，或直接播放同目录中的 MP4。';console.error(e)}}
+init();
+</script></body></html>

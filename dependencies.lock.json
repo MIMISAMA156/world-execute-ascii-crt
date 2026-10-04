@@ -1,0 +1,18 @@
+{
+  "repository": "yym8224961/world.execute-me-ascii",
+  "commit": "9d8e815281a104ccb648ec2f2df88cd9f0cb8c12",
+  "files": {
+    "player.py": "aac5c7b48f66301325ee393d36434b394d054505b573d8f5ec0cd508861d8263",
+    "scenes.py": "4a58f79e60fa0590677dd39c4d28898960b4c7b5f875d754f9a2c83602757ac9",
+    "config.json": "166fdbdd71c6f401dead543f5636defcaa525feda2852a009f1fbe743bb22a91",
+    "lyrics.json": "b2a8c9a9c600b25acae29d2c622bf816a69b5f92a93b5bd4c0d423982a2da987",
+    "spectrum.json": "3e179991cd9652cb866e0d784bdbf069fda8fa6c4a3275413599aa20221796bd"
+  },
+  "terminal": {
+    "tag": "v1.24.11911.0",
+    "url": "https://github.com/microsoft/terminal/releases/download/v1.24.11911.0/Microsoft.WindowsTerminal_1.24.11911.0_x64.zip",
+    "bytes": 11651776,
+    "sha256": "7691efeb71c8dd0b95536c84e366fa4cf809a42c534912f9cefa1056534383bd",
+    "upstream_digest": "sha256:7691efeb71c8dd0b95536c84e366fa4cf809a42c534912f9cefa1056534383bd"
+  }
+}

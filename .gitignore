@@ -1,0 +1,31 @@
+# Local external dependencies (not covered by this repository's MIT license)
+.cache/
+terminal-runtime/
+/source/engine.py
+/source/scenes.py
+/source/config.json
+/source/lyrics.json
+/source/spectrum.json
+
+# Personal media and generated content
+/media/*
+!/media/README.md
+/runtime/
+/build/
+/sample-*.png
+/atlas.png
+/frames.bin.gz
+/animation.json
+*.mp3
+*.wav
+*.flac
+*.m4a
+*.mp4
+*.zip
+*.pyz
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+.DS_Store
+Thumbs.db
